@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="2"
+            failures="1"
+            tests="2">
+
+  <testsuite name="imdb"
+    errors="2" failures="1" hostname="" id="" package="imdb" skipped="0"
+    tests="2" time="32.24" timestamp="">
+  
+    <testcase name="Login" classname="imdb" time="26.88" assertions="5">
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="Logoff" classname="imdb" time="5.368" assertions="4">
+
+    
+
+    
+
+      <failure message="Testing if element &lt;Element [name=@login]&gt; contains text: &#34;Sign In&#34;. Element could not be located in 1000 ms. - expected [0;32m&#34;Sign In&#34;[0m but got: [0;31m&#34;null&#34;[0m">    at Page.logout (C:\Users\brenn\DevMountain\groupProject\pageObjects\moviesAnywhere.js:25:21)
+    at Object.Logoff (C:\Users\brenn\DevMountain\groupProject\tests\imdb.js:19:14)</failure>
+
+    <failure message="    at Page.logout (C:\Users\brenn\DevMountain\groupProject\pageObjects\moviesAnywhere.js:25:21)">    at Object.Logoff (C:\Users\brenn\DevMountain\groupProject\tests\imdb.js:19:14)</failure>
+    </testcase>
+  
+
+  
+
+  
+  </testsuite>
+</testsuites>
