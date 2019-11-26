@@ -16,23 +16,72 @@ var movieCommands = {
     },
     clearWatch: function () {
         this
-            .click
-
+            .click('@menuOpen')
+            .click('@watchlist')
+            .waitForElementVisible('@watchEdit')
+            .click('@watchEdit')
+            .waitForElementVisible('@selectAll')
+            .click('@selectAll')
+            .click('@deleteBtn')
+            .api.acceptAlert()
+        this
+            .click('@doneBtn')
+            .waitForElementVisible('@createBtn')
+            .verify.containsText('@createBtn', 'Create a new list')
         return this;
     },
-    addWatch: function (query) {
+    removeMovie: function (data) {
         this
-            .clearWatch()
-            .click('@search')
-            .setValue('@search', query)
-            .click('searchBtn')
-
-        return this;
+            .waitForElementPresent('@search')
+            .setValue('@search', data)
+            .useXpath()
+            .waitForElementPresent(`//div[contains(text(), "${data}")]`)
+            .click(`//div[contains(text(), "${data}")]`)
+            .waitForElementPresent('@title')
+            .verify.containsText('@title', data)
+            .click('@watchBtn')
+            .verify.containsText('@watchBtn', 'Add to Watchlist')
+        return this
+    },
+    addMovie: function (data) {
+        this
+            .waitForElementPresent('@search')
+            .setValue('@search', data)
+            .useXpath()
+            .waitForElementPresent(`//div[contains(text(), "${data}")]`)
+            .click(`//div[contains(text(), "${data}")]`)
+            .waitForElementPresent('@title')
+            .verify.containsText('@title', data)
+            .click('@watchBtn')
+            .verify.containsText('@watchBtn', 'Added to Watchlist')
+        return this
+    },
+    regInfoCheck: function () {
+        this
+            .waitForElementPresent('@page')
+            .click('@menuOpen')
+            .waitForElementPresent('@settings')
+            .click('@settings')
+            .waitForElementPresent('@page')
+            .click('@regBtn')
+            .waitForElementPresent('@help')
+            .api.back()
+        this
+            .waitForElementPresent('@settings')
+            .click('@imdbFaq')
+            .waitForElementPresent('@help')
+            .verify.containsText('@faqTitle', 'For entertainment fans')
+            .api.back()
+        this
+            .waitForElementPresent('@settings')
+            .click('@privBtn')
+            .waitForElementPresent('@page')
+        return this
     },
     logout: function () {
         this
             .click('@menuOpen')
-            .waitForElementPresent('@accountMenu')
+            .waitForElementPresent('@signOut')
             .click('@signOut')
             .waitForElementPresent('@page')
             .verify.containsText('@login', "Sign In");
@@ -45,6 +94,8 @@ module.exports = {
     elements: {
         // Page Is Loaded
         page: '#colorbox',
+        title: '.title_wrapper',
+        help: '#a-popover-root',
 
         // Nav Bar
         tv: {
@@ -60,11 +111,11 @@ module.exports = {
             locateStrategy: 'xpath'
         },
         activity: {
-            selector: '(//span[@class="ipc-list-item__text"][contains(text(), "Your Activity")])',
+            selector: '//a[@class="ipc-list__item mdc-list-item"][1]',
             locateStrategy: 'xpath'
         },
         ratings: {
-            selector: '(//span[@class="ipc-list-item__text"][contains(text(), "Your Ratings")])',
+            selector: '//a[@class="ipc-list__item mdc-list-item"][3]',
             locateStrategy: 'xpath'
         },
 
@@ -74,15 +125,20 @@ module.exports = {
 
         // Watchlist
         watchlist: {
-            selector: '(//span[@class="ipc-list-item__text"][contains(text(), "Your Watchlist")])',
+            selector: '//a[@class="ipc-list__item mdc-list-item"][2]',
             locateStrategy: 'xpath'
         },
+        //Add Movies to Watchlist
+        watchBtn: '.uc-add-wl-button',
         //Selectors for Watchlist page
-        watchEdit: '[title="edit"]',
-        selectAll: '[class="lister-edit-total-selection"]',
-        deleteBtn: '[#delete_items]',
-        doneBtn: '[class="list-edit-done"]',
-        createBtn: '[class="seemore"]',
+        watchEdit: '[title="Edit"]',
+        selectAll: {
+            selector: '//label[@for="totalCheck"]',
+            locateStrategy: 'xpath'
+        },
+        deleteBtn: '#delete_items',
+        doneBtn: '.list-edit-done',
+        createBtn: '.seemore',
 
         // Login & Sign Out
         login: {
@@ -97,13 +153,13 @@ module.exports = {
         pass: '#ap_password',
         signIn: '#signInSubmit',
         signOut: {
-            selector: '(//span[@class="ipc-list-item__text"][contains(text(), "Sign Out")])',
+            selector: '//a[@class="ipc-list__item mdc-list-item"][5]',
             locateStrategy: 'xpath'
         },
 
         // Account Settings
         settings: {
-            selector: '(//span[@class="ipc-list-item__text"][contains(text(), "Account Settings")])',
+            selector: '//a[@class="ipc-list__item mdc-list-item"][4]',
             locateStrategy: 'xpath'
         },
         //Selectors for Edit Profile page
@@ -121,21 +177,19 @@ module.exports = {
             selector: '//a[text()="Registration FAQ"]',
             locateStrategy: 'xpath'
         },
-        imbdFaq: {
+        regTitle: '#article_content',
+        imdbFaq: {
             selector: '//a[text()="IMDb FAQ"]',
+            locateStrategy: 'xpath'
+        },
+        faqTitle: {
+            selector: '//li[@data-a-tab-name="imdb"]',
             locateStrategy: 'xpath'
         },
         privBtn: {
             selector: '//a[text()="Privacy Policy"]',
             locateStrategy: 'xpath'
         },
-        accSetBtn: {
-            selector: '//a[text()="Your Account Settings"]',
-            locateStrategy: 'xpath'
-        },
-        helpRegBtn: {
-            selector: '//a[text()="Get help completing registration"]',
-            locateStrategy: 'xpath'
-        },
+        privTitle: '.widget_nested',
     }
 }
