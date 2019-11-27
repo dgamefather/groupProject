@@ -15,19 +15,29 @@ var movieCommands = {
         return this;
     },
     clearWatch: function () {
+        const browser = this.api;
         this
             .click('@menuOpen')
             .click('@watchlist')
             .waitForElementVisible('@watchEdit')
             .click('@watchEdit')
             .waitForElementVisible('@selectAll')
+            .moveToElement('@selectAll', 1, 1)
             .click('@selectAll')
-            .click('@deleteBtn')
-            .api.acceptAlert()
-        this
-            .click('@doneBtn')
-            .waitForElementVisible('@createBtn')
-            .verify.containsText('@createBtn', 'Create a new list')
+            // .moveToElement('#totalCheck', 0, 0, (result) => {
+            //     console.log('result', result);
+            //     browser
+            //         .execute('arguments[0].scrollIntoView({behavior: "instant", block: "center", inline: "center"})', [result.value]);
+            //     console.log('result.value', result.value);
+            //     browser
+            //         .click(result.value.ELEMENT);
+            // })
+        //     .click('@deleteBtn')
+        //     .api.acceptAlert()
+        // this
+        //     .click('@doneBtn')
+        //     .waitForElementVisible('@createBtn')
+        //     .verify.containsText('@createBtn', 'Create a new list');
         return this;
     },
     removeMovie: function (data) {
@@ -40,8 +50,8 @@ var movieCommands = {
             .waitForElementPresent('@title')
             .verify.containsText('@title', data)
             .click('@watchBtn')
-            .verify.containsText('@watchBtn', 'Add to Watchlist')
-        return this
+            .verify.containsText('@watchBtn', 'Add to Watchlist');
+        return this;
     },
     addMovie: function (data) {
         this
@@ -132,10 +142,7 @@ module.exports = {
         watchBtn: '.uc-add-wl-button',
         //Selectors for Watchlist page
         watchEdit: '[title="Edit"]',
-        selectAll: {
-            selector: '//label[@for="totalCheck"]',
-            locateStrategy: 'xpath'
-        },
+        selectAll: '#totalCheck',
         deleteBtn: '#delete_items',
         doneBtn: '.list-edit-done',
         createBtn: '.seemore',
