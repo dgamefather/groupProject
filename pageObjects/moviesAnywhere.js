@@ -2,6 +2,7 @@ var movieCommands = {
     login: function (userData) {
         this
             .waitForElementPresent('@page')
+            .moveToElement('@login', 0, 0)
             .click('@login')
             .waitForElementPresent('@imdb')
             .click('@imdb')
@@ -11,6 +12,7 @@ var movieCommands = {
             .setValue('@pass', userData.password)
             .click('@signIn')
             .waitForElementPresent('@page')
+            .moveToElement('@menuOpen', 0, 0)
             .verify.containsText('@menuOpen', "Hello");
         return this;
     },
@@ -22,16 +24,16 @@ var movieCommands = {
             .waitForElementVisible('@watchEdit')
             .click('@watchEdit')
             .waitForElementVisible('@selectAll')
-            .moveToElement('@selectAll', 1, 1)
+            .moveToElement('@selectAll', 0, 0)
             .click('@selectAll')
-            // .moveToElement('#totalCheck', 0, 0, (result) => {
-            //     console.log('result', result);
-            //     browser
-            //         .execute('arguments[0].scrollIntoView({behavior: "instant", block: "center", inline: "center"})', [result.value]);
-            //     console.log('result.value', result.value);
-            //     browser
-            //         .click(result.value.ELEMENT);
-            // })
+        // .moveToElement('#totalCheck', 0, 0, (result) => {
+        //     console.log('result', result);
+        //     browser
+        //         .execute('arguments[0].scrollIntoView({behavior: "instant", block: "center", inline: "center"})', [result.value]);
+        //     console.log('result.value', result.value);
+        //     browser
+        //         .click(result.value.ELEMENT);
+        // })
         //     .click('@deleteBtn')
         //     .api.acceptAlert()
         // this
@@ -90,10 +92,12 @@ var movieCommands = {
     },
     logout: function () {
         this
+            .moveToElement('@menuOpen', 0, 0)
             .click('@menuOpen')
             .waitForElementPresent('@signOut')
             .click('@signOut')
             .waitForElementPresent('@page')
+            .moveToElement('@login', 0, 0)
             .verify.containsText('@login', "Sign In");
         return this;
     }
@@ -148,10 +152,8 @@ module.exports = {
         createBtn: '.seemore',
 
         // Login & Sign Out
-        login: {
-            selector: '(//a[@class="ipc-button ipc-button--single-padding ipc-button--default-height ipc-button--baseAlt ipc-button--textPrimary ipc-text-button imdb-header__signin-text"])',
-            locateStrategy: 'xpath'
-        },
+        login: 'a[class*="imdb-header__signin-text"]',
+
         imdb: {
             selector: '(//span[contains(text(), "Sign in with IMDb")])',
             locateStrategy: 'xpath'
