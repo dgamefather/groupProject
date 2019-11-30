@@ -9,29 +9,29 @@ module.exports = {
             .login(loginInfo);
     },
     after: browser => {
-        // db
-        //     .navigate()
-        //     .logout();
+        db
+            .navigate()
+            .logout();
         browser
-            .pause()
+            // .pause()
             .end();
     },
     'Clear Watchlist': browser => {
-        // movies.forEach(movie => {
-        //     db
-        //         .removeMovie(movie);
-        // });
-        db
-            .clearWatch();
+        movies.forEach(movie => {
+            db
+                .removeMovie(movie);
+        });
+        // db
+        //     .clearWatch();
     },
-    // 'Add Movies': browser => {
-    //     movies.forEach(movie => {
-    //         db
-    //             .addMovie(movie);
-    //     });
-    // },
-    // 'Registration Nav': browser => {
-    //     db
-    //         .regInfoCheck();
-    // },
+    'Add Movies': browser => {
+        movies.forEach(movie => {
+            db
+                .addMovie(movie);
+        });
+    },
+    'Registration Nav': browser => {
+        db
+            .regInfoCheck();
+    },
 }
