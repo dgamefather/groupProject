@@ -34,12 +34,12 @@ var movieCommands = {
         //     browser
         //         .click(result.value.ELEMENT);
         // })
-        //     .click('@deleteBtn')
-        //     .api.acceptAlert()
-        // this
-        //     .click('@doneBtn')
-        //     .waitForElementVisible('@createBtn')
-        //     .verify.containsText('@createBtn', 'Create a new list');
+            .click('@deleteBtn')
+            .api.acceptAlert()
+        this
+            .click('@doneBtn')
+            .waitForElementVisible('@createBtn')
+            .verify.containsText('@createBtn', 'Create a new list');
         return this;
     },
     removeMovie: function (data) {

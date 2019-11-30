@@ -1,11 +1,12 @@
 var db = {};
-var loginInfo = require('../testAssets/login');
-var movies = require('../testAssets/movieList');
+var loginInfo = require('../assets/login');
+var movies = require('../assets/movieList');
 module.exports = {
     before: browser => {
         db = browser.page.moviesAnywhere();
         db
-            .navigate();
+            .navigate()
+            .login(loginInfo);
     },
     after: browser => {
         // db
@@ -14,10 +15,6 @@ module.exports = {
         browser
             .pause()
             .end();
-    },
-    'Login': browser => {
-        db
-            .login(loginInfo);
     },
     'Clear Watchlist': browser => {
         // movies.forEach(movie => {
