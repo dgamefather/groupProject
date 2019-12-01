@@ -16,6 +16,12 @@ module.exports = {
             // .pause()
             .end();
     },
+    'Search Movie': browser => {
+        movies.forEach(movie => {
+            db
+                .searchBar(movie);
+        });
+    },
     'Clear Watchlist': browser => {
         movies.forEach(movie => {
             db

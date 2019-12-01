@@ -26,14 +26,14 @@ var movieCommands = {
             .waitForElementVisible('@selectAll')
             .moveToElement('@selectAll', 0, 0)
             .click('@selectAll')
-        // .moveToElement('#totalCheck', 0, 0, (result) => {
-        //     console.log('result', result);
-        //     browser
-        //         .execute('arguments[0].scrollIntoView({behavior: "instant", block: "center", inline: "center"})', [result.value]);
-        //     console.log('result.value', result.value);
-        //     browser
-        //         .click(result.value.ELEMENT);
-        // })
+            // .moveToElement('#totalCheck', 0, 0, (result) => {
+            //     console.log('result', result);
+            //     browser
+            //         .execute('arguments[0].scrollIntoView({behavior: "instant", block: "center", inline: "center"})', [result.value]);
+            //     console.log('result.value', result.value);
+            //     browser
+            //         .click(result.value.ELEMENT);
+            // })
             .click('@deleteBtn')
             .api.acceptAlert()
         this
@@ -100,7 +100,16 @@ var movieCommands = {
             .moveToElement('@login', 0, 0)
             .verify.containsText('@login', "Sign In");
         return this;
-    }
+    },
+    searchBar: function (data) {
+        this
+            .waitForElementPresent('@page')
+            .setValue('@search', data)
+            .click('@searchBtn')
+            .waitForElementPresent('@page')
+            .verify.containsText('@searchRslt', data)
+        return this
+    },
 }
 module.exports = {
     url: 'https://www.imdb.com/',
@@ -136,6 +145,7 @@ module.exports = {
         // Search
         search: '#suggestion-search',
         searchBtn: '#suggestion-search-button',
+        searchRslt: '.article',
 
         // Watchlist
         watchlist: {
