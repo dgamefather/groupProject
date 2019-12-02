@@ -1,6 +1,7 @@
 var db = {};
 var loginInfo = require('../assets/login');
-var movies = require('../assets/movieList');
+var watch = require('../assets/movieList');
+var shows = require('../assets/searchList');
 module.exports = {
     before: browser => {
         db = browser.page.moviesAnywhere();
@@ -17,13 +18,13 @@ module.exports = {
             .end();
     },
     'Search Movie': browser => {
-        movies.forEach(movie => {
+        shows.forEach(search => {
             db
-                .searchBar(movie);
+                .searchBar(search);
         });
     },
     'Clear Watchlist': browser => {
-        movies.forEach(movie => {
+        watch.forEach(movie => {
             db
                 .removeMovie(movie);
         });
@@ -31,7 +32,7 @@ module.exports = {
         //     .clearWatch();
     },
     'Add Movies': browser => {
-        movies.forEach(movie => {
+        watch.forEach(movie => {
             db
                 .addMovie(movie);
         });
