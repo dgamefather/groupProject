@@ -16,32 +16,6 @@ var movieCommands = {
             .verify.containsText('@menuOpen', "Hello");
         return this;
     },
-    clearWatch: function () {
-        const browser = this.api;
-        this
-            .click('@menuOpen')
-            .click('@watchlist')
-            .waitForElementVisible('@watchEdit')
-            .click('@watchEdit')
-            .waitForElementVisible('@selectAll')
-            .moveToElement('@selectAll', 0, 0)
-            .click('@selectAll')
-            // .moveToElement('#totalCheck', 0, 0, (result) => {
-            //     console.log('result', result);
-            //     browser
-            //         .execute('arguments[0].scrollIntoView({behavior: "instant", block: "center", inline: "center"})', [result.value]);
-            //     console.log('result.value', result.value);
-            //     browser
-            //         .click(result.value.ELEMENT);
-            // })
-            .click('@deleteBtn')
-            .api.acceptAlert()
-        this
-            .click('@doneBtn')
-            .waitForElementVisible('@createBtn')
-            .verify.containsText('@createBtn', 'Create a new list');
-        return this;
-    },
     removeMovie: function (data) {
         this
             .waitForElementPresent('@search')

@@ -14,7 +14,6 @@ module.exports = {
             .navigate()
             .logout();
         browser
-            // .pause()
             .end();
     },
     'Search Movie': browser => {
@@ -28,8 +27,6 @@ module.exports = {
             db
                 .removeMovie(movie);
         });
-        // db
-        //     .clearWatch();
     },
     'Add Movies': browser => {
         watch.forEach(movie => {
