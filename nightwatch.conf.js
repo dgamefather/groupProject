@@ -24,7 +24,10 @@ module.exports = {
       "desiredCapabilities": {
         "browserName": "chrome",
         "chromeOptions": {
-          "w3c": false
+          "w3c": false,
+          "args": [
+            "window-size=1920,1080"
+        ]
         }
       }
     },
