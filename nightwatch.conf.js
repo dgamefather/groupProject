@@ -27,7 +27,7 @@ module.exports = {
           "w3c": false,
           "args": [
             "window-size=1920,1080"
-        ]
+          ]
         }
       }
     },
